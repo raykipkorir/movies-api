@@ -3,13 +3,14 @@ from typing import Annotated
 
 from bson.objectid import ObjectId
 from fastapi import Depends, FastAPI, HTTPException, status
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordRequestForm
 
 from app.extensions.auth import (
     authenticate_user,
     create_access_token,
-    get_password_hash,
     get_current_user,
+    get_password_hash,
 )
 from app.extensions.database import db
 from app.schemas import MovieSchema, TokenSchema, UserCreateSchema, UserResponseSchema
@@ -17,13 +18,23 @@ from app.serializers import movieEntity, movieListEntity, userEntity
 
 app = FastAPI()
 
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# db collections
 Movie = db.movies
 User = db.users
 
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 
-# cors
 @app.post("/api/createuser", response_model=UserResponseSchema)
 async def create_user(user: UserCreateSchema):
     queried_user = await User.find_one({"username": user.username})
