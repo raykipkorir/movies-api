@@ -9,6 +9,8 @@ services:
       - .:/app
     ports:
       - "8000:80"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   mongo:
     image: mongo:latest
