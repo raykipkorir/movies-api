@@ -137,3 +137,4 @@ GitHub.sublime-settings
 .history
 .prettierignore
 notes.txt
+docker-compose.yml
