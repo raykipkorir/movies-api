@@ -2,18 +2,17 @@ from datetime import timedelta
 from typing import Annotated
 
 from bson.objectid import ObjectId
-from fastapi import Depends, FastAPI, HTTPException, status
+from fastapi import Depends, FastAPI, HTTPException, Request, status
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import HTMLResponse
 from fastapi.security import OAuth2PasswordRequestForm
+from fastapi.templating import Jinja2Templates
 
-from app.extensions.auth import (
-    authenticate_user,
-    create_access_token,
-    get_current_user,
-    get_password_hash,
-)
+from app.extensions.auth import (authenticate_user, create_access_token,
+                                 get_current_user, get_password_hash)
 from app.extensions.database import db
-from app.schemas import MovieSchema, TokenSchema, UserCreateSchema, UserResponseSchema
+from app.schemas import (MovieSchema, TokenSchema, UserCreateSchema,
+                         UserResponseSchema)
 from app.serializers import movieEntity, movieListEntity, userEntity
 
 app = FastAPI()
@@ -33,6 +32,13 @@ Movie = db.movies
 User = db.users
 
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
+
+templates = Jinja2Templates(directory="templates")
+
+
+@app.get("/", response_class=HTMLResponse)
+async def index(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
 
 
 @app.post("/api/users", response_model=UserResponseSchema)
