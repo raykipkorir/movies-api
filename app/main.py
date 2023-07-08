@@ -35,7 +35,7 @@ User = db.users
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 
-@app.post("/api/createuser", response_model=UserResponseSchema)
+@app.post("/api/users", response_model=UserResponseSchema)
 async def create_user(user: UserCreateSchema):
     queried_user = await User.find_one({"username": user.username})
     if queried_user:
