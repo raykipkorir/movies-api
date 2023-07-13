@@ -5,7 +5,7 @@
 ## Overview
 Access movie information effortlessly with my free API!". This API gives you access to more than 50 movies.
 
-I leveraged the Selenium framework to perform web scraping operations, extracting comprehensive movie data
+I leveraged the Selenium framework to perform web scraping operations.
 
 ## Usage
 Clone the repo
