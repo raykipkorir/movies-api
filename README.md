@@ -3,9 +3,9 @@
 ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
 
 ## Overview
-This API returns 50+ movies. I will keep adding more.
+Access movie information effortlessly with my free API!". This API gives you access to more than 50 movies.
 
-I used selenium to scrape movie data.
+I leveraged the Selenium framework to perform web scraping operations, extracting comprehensive movie data
 
 ## Usage
 Clone the repo
@@ -35,6 +35,6 @@ uvicorn app.main:app --reload
 N/B -> Make sure you create environment variables shown in .env.example
 
 ## Contribution
-Feel free to fork the project and contribute.
+You are welcome to fork the project and make contributions.
 
-Any minor changes would be greatly appreciated.
+Any minor contribution would be greatly appreciated.
