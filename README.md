@@ -20,9 +20,14 @@ Create virtual environment
 ```
 virtualenv venv
 ```
-Activate virutal environment 
+Activate virutal environment
+- Windows
 ```
 \venv\Scripts\activate
+```
+- Linux
+```
+source venv/bin/activate
 ```
 Install the dependencies
 ```
