@@ -41,38 +41,38 @@ async def index(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
 
-@app.post("/api/users", response_model=UserResponseSchema)
-async def create_user(user: UserCreateSchema):
-    queried_user = await User.find_one({"username": user.username})
-    if queried_user:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="User with that username already exists",
-        )
-    hashed_password = get_password_hash(user.password)
-    user_db = await User.insert_one(
-        {"username": user.username, "hashed_password": hashed_password, "active": True}
-    )
-    user_db = await User.find_one({"_id": user_db.inserted_id})
-    user_db = userEntity(user_db)
-    return user_db
+# @app.post("/api/users", response_model=UserResponseSchema)
+# async def create_user(user: UserCreateSchema):
+#     queried_user = await User.find_one({"username": user.username})
+#     if queried_user:
+#         raise HTTPException(
+#             status_code=status.HTTP_400_BAD_REQUEST,
+#             detail="User with that username already exists",
+#         )
+#     hashed_password = get_password_hash(user.password)
+#     user_db = await User.insert_one(
+#         {"username": user.username, "hashed_password": hashed_password, "active": True}
+#     )
+#     user_db = await User.find_one({"_id": user_db.inserted_id})
+#     user_db = userEntity(user_db)
+#     return user_db
 
 
-@app.post("/api/token", response_model=TokenSchema)
-async def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
-    """login"""
-    user = await authenticate_user(form_data.username, form_data.password)
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
-    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-    access_token = create_access_token(
-        data={"sub": user.get("username")}, expires_delta=access_token_expires
-    )
-    return {"access_token": access_token, "token_type": "bearer"}
+# @app.post("/api/token", response_model=TokenSchema)
+# async def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
+#     """login"""
+#     user = await authenticate_user(form_data.username, form_data.password)
+#     if not user:
+#         raise HTTPException(
+#             status_code=status.HTTP_401_UNAUTHORIZED,
+#             detail="Incorrect username or password",
+#             headers={"WWW-Authenticate": "Bearer"},
+#         )
+#     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+#     access_token = create_access_token(
+#         data={"sub": user.get("username")}, expires_delta=access_token_expires
+#     )
+#     return {"access_token": access_token, "token_type": "bearer"}
 
 
 @app.get(

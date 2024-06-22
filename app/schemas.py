@@ -5,7 +5,7 @@ from pydantic import BaseModel
 class MovieSchema(BaseModel):
     id: str
     title: str
-    rating: int
+    rating: float
     url: str
 
     class Config:

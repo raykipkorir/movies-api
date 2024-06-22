@@ -1,6 +1,5 @@
 annotated-types==0.7.0
 anyio==4.4.0
-bson==0.5.10
 certifi==2024.6.2
 click==8.1.7
 dnspython==2.6.1
