@@ -79,7 +79,7 @@ async def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
     "/api/movies", response_model=list[MovieSchema], status_code=status.HTTP_200_OK
 )
 async def get_movies(
-    current_user: Annotated[str, Depends(get_current_user)],
+    # current_user: Annotated[str, Depends(get_current_user)],
     title: str | None = None,
     sort: str | None = None,
 ):
@@ -112,7 +112,7 @@ async def get_movies(
 @app.get("/api/movies/{id}", response_model=MovieSchema, status_code=status.HTTP_200_OK)
 async def get_movie_by_id(
     id: str,
-    current_user: Annotated[str, Depends(get_current_user)],
+    # current_user: Annotated[str, Depends(get_current_user)],
 ):
     """Retrieve specific movie by id"""
     movie = await Movie.find_one({"_id": ObjectId(id)})
